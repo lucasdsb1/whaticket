@@ -77,7 +77,7 @@ const MainListItems = (props) => {
         primary="Dashboard"
         icon={<DashboardOutlinedIcon />}
       />
-      <ListItemLink
+      {/* <ListItemLink
         to="/connections"
         primary={i18n.t("mainDrawer.listItems.connections")}
         icon={
@@ -85,7 +85,7 @@ const MainListItems = (props) => {
             <SyncAltIcon />
           </Badge>
         }
-      />
+      /> */}
       <ListItemLink
         to="/tickets"
         primary={i18n.t("mainDrawer.listItems.tickets")}
@@ -125,6 +125,15 @@ const MainListItems = (props) => {
               to="/settings"
               primary={i18n.t("mainDrawer.listItems.settings")}
               icon={<SettingsOutlinedIcon />}
+            />
+            <ListItemLink
+              to="/connections"
+              primary={i18n.t("mainDrawer.listItems.connections")}
+              icon={
+                <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
+                  <SyncAltIcon />
+                </Badge>
+              }
             />
           </>
         )}

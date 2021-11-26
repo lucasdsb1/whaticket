@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "start": "nodemon dist/server.js",
+    "start": "node dist/server.js",
     "dev:server": "ts-node-dev --respawn --transpile-only --ignore node_modules src/server.ts",
     "pretest": "NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all",
     "test": "NODE_ENV=test jest",
@@ -37,7 +37,7 @@
     "sequelize-cli": "^5.5.1",
     "sequelize-typescript": "^1.1.0",
     "socket.io": "^3.0.5",
-    "whatsapp-web.js": "^1.15.2",
+    "whatsapp-web.js": "github:pedroslopez/whatsapp-web.js#multidevice",
     "yup": "^0.32.8"
   },
   "devDependencies": {
