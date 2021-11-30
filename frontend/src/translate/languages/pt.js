@@ -18,7 +18,7 @@ const messages = {
         },
       },
       login: {
-        title: "Login",
+        title: "Whaticket 📲 | PrintPage Login",
         form: {
           email: "Email",
           password: "Senha",
@@ -264,7 +264,8 @@ const messages = {
         noTicketsMessage:
           "Nenhum ticket encontrado com esse status ou termo pesquisado",
         buttons: {
-          accept: "Aceitar",
+          accept: "Aceitar (🤖✅)",
+          acceptBeforeBot: "Aceitar (🤖⚠️)",
         },
       },
       newTicketModal: {
@@ -378,7 +379,8 @@ const messages = {
             return: "Retornar",
             resolve: "Resolver",
             reopen: "Reabrir",
-            accept: "Aceitar",
+            accept: "Aceitar (🤖✅)",
+            acceptBeforeBot: "Aceitar (🤖⚠️)",
           },
         },
       },

@@ -102,7 +102,7 @@ const TicketActionButtons = ({ ticket }) => {
 					/>
 				</>
 			)}
-			{ticket.status === "pending" && (
+			{(ticket.status === "pending" && ticket.queue !== null) && (
 				<ButtonWithSpinner
 					loading={loading}
 					size="small"
@@ -113,6 +113,28 @@ const TicketActionButtons = ({ ticket }) => {
 					{i18n.t("messagesList.header.buttons.accept")}
 				</ButtonWithSpinner>
 			)}
+			{(ticket.status === "pending" && ticket.queue === null) && (
+				<ButtonWithSpinner
+					loading={loading}
+					size="small"
+					variant="contained"
+					color="secondary"
+					onClick={e => handleUpdateTicketStatus(e, "open", user?.id)}
+				>
+					{i18n.t("messagesList.header.buttons.acceptBeforeBot")}
+				</ButtonWithSpinner>
+			)}
+			{/* {ticket.status === "pending" && (
+				<ButtonWithSpinner
+					loading={loading}
+					size="small"
+					variant="contained"
+					color="primary"
+					onClick={e => handleUpdateTicketStatus(e, "open", user?.id)}
+				>
+					{i18n.t("messagesList.header.buttons.accept")}
+				</ButtonWithSpinner>
+			)} */}
 		</div>
 	);
 };

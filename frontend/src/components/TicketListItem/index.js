@@ -142,13 +142,21 @@ const TicketListItem = ({ ticket }) => {
 				dense
 				button
 				onClick={e => {
-					if (ticket.status === "pending") return;
+					if (ticket.status === "pending" && ticket.queue !== null) return;
 					handleSelectTicket(ticket.id);
 				}}
 				selected={ticketId && +ticketId === ticket.id}
 				className={clsx(classes.ticket, {
-					[classes.pendingTicket]: ticket.status === "pending",
+					[classes.pendingTicket]: (ticket.status === "pending" && ticket.queue !== null),
 				})}
+				// onClick={e => {
+				// 	if (ticket.status === "pending") return;
+				// 	handleSelectTicket(ticket.id);
+				// }}
+				// selected={ticketId && +ticketId === ticket.id}
+				// className={clsx(classes.ticket, {
+				// 	[classes.pendingTicket]: ticket.status === "pending",
+				// })}
 			>
 				<Tooltip
 					arrow
@@ -224,7 +232,7 @@ const TicketListItem = ({ ticket }) => {
 						</span>
 					}
 				/>
-				{ticket.status === "pending" && (
+				{(ticket.status === "pending" && ticket.queue !== null) && (
 					<ButtonWithSpinner
 						color="primary"
 						variant="contained"
@@ -236,6 +244,30 @@ const TicketListItem = ({ ticket }) => {
 						{i18n.t("ticketsList.buttons.accept")}
 					</ButtonWithSpinner>
 				)}
+				{(ticket.status === "pending" && ticket.queue === null) && (
+					<ButtonWithSpinner
+						color="secondary"
+						variant="contained"
+						className={classes.acceptButton}
+						size="small"
+						loading={loading}
+						onClick={e => handleAcepptTicket(ticket.id)}
+					>
+						{i18n.t("ticketsList.buttons.acceptBeforeBot")}
+					</ButtonWithSpinner>
+				)}
+				{/* {ticket.status === "pending" && (
+					<ButtonWithSpinner
+						color="primary"
+						variant="contained"
+						className={classes.acceptButton}
+						size="small"
+						loading={loading}
+						onClick={e => handleAcepptTicket(ticket.id)}
+					>
+						{i18n.t("ticketsList.buttons.accept")}
+					</ButtonWithSpinner>
+				)} */}
 			</ListItem>
 			<Divider variant="inset" component="li" />
 		</React.Fragment>

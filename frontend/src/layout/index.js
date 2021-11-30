@@ -38,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
 
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
+    color: "white",
+    backgroundColor: "#48887b"
   },
   toolbarIcon: {
     display: "flex",
@@ -120,7 +122,7 @@ const LoggedInLayout = ({ children }) => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if (document.body.offsetWidth > 600) {
+    if (document.body.offsetWidth < 100) { //modified to keep the menu closed
       setDrawerOpen(true);
     }
   }, []);
@@ -217,7 +219,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            Atendimento | PrintPage
+            Whaticket 📲 | +55 82 4007-2766
           </Typography>
           {user.id && <NotificationsPopOver />}
 
