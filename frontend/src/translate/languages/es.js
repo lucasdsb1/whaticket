@@ -265,7 +265,8 @@ const messages = {
         noTicketsMessage:
           "No se encontraron tickets con este estado o término de búsqueda",
         buttons: {
-          accept: "Acceptar",
+          accept: "Aceptar (🤖✅)",
+          acceptBeforeBot: "Aceptar (🤖⚠️)",
         },
       },
       newTicketModal: {
@@ -379,7 +380,8 @@ const messages = {
             return: "Devolver",
             resolve: "Resolver",
             reopen: "Reabrir",
-            accept: "Aceptar",
+            accept: "Aceptar (🤖✅)",
+            acceptBeforeBot: "Aceptar (🤖⚠️)",
           },
         },
       },

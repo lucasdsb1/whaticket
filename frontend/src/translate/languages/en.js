@@ -261,7 +261,8 @@ const messages = {
         noTicketsTitle: "Nothing here!",
         noTicketsMessage: "No tickets found with this status or search term.",
         buttons: {
-          accept: "Accept",
+          accept: "Accept (🤖✅)",
+          acceptBeforeBot: "Accept (🤖⚠️)",
         },
       },
       newTicketModal: {
@@ -374,7 +375,8 @@ const messages = {
             return: "Return",
             resolve: "Resolve",
             reopen: "Reopen",
-            accept: "Accept",
+            accept: "Accept (🤖✅)",
+            acceptBeforeBot: "Accept (🤖⚠️)",
           },
         },
       },
