@@ -17,6 +17,8 @@ import {
 
 import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
 
+import logo from '../../assets/printpagelogo.png'
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import { i18n } from "../../translate/i18n";
@@ -77,9 +79,10 @@ const Login = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        {/* <Avatar className={classes.avatar}>
           <LockOutlined />
-        </Avatar>
+        </Avatar> */}
+        <img src={logo}></img>
         <Typography component="h1" variant="h5">
           {i18n.t("login.title")}
         </Typography>

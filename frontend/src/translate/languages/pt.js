@@ -18,7 +18,7 @@ const messages = {
         },
       },
       login: {
-        title: "Whaticket 📲 | PrintPage Login",
+        title: "Whaticket 📲",
         form: {
           email: "Email",
           password: "Senha",
