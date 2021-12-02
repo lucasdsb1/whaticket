@@ -30,7 +30,16 @@ interface Session extends Client {
 const writeFileAsync = promisify(writeFile);
 
 const verifyContact = async (msgContact: WbotContact): Promise<Contact> => {
-  const profilePicUrl = await msgContact.getProfilePicUrl();
+  //const profilePicUrl = await msgContact.getProfilePicUrl();
+
+  let profilePicUrl = undefined;
+
+  try {
+    profilePicUrl = await msgContact.getProfilePicUrl();
+  }
+  catch{
+    profilePicUrl = undefined;
+  }
 
   const contactData = {
     name: msgContact.name || msgContact.pushname || msgContact.id.user,
@@ -230,7 +239,6 @@ const handleMessage = async (
     }
 
     const chat = await msg.getChat();
-
 
     if (chat.isGroup) {
       let msgGroupContact;
