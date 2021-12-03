@@ -376,8 +376,8 @@ const messages = {
         header: {
           assignedTo: "Atribuído à:",
           buttons: {
-            return: "Retornar",
-            resolve: "Resolver",
+            return: "Retornar para aguardando",
+            resolve: "Finalizar",
             reopen: "Reabrir",
             accept: "Aceitar (🤖✅)",
             acceptBeforeBot: "Aceitar (🤖⚠️)",
