@@ -66,4 +66,44 @@ const UpdateUserService = async ({
   return serializedUser;
 };
 
-export default UpdateUserService;
+const UpdateUserPasswordService = async ({
+  userData,
+  userId
+}: Request): Promise<Response | undefined> => {
+  const user = await ShowUserService(userId);
+
+  const schema = Yup.object().shape({
+    name: Yup.string().min(2),
+    email: Yup.string().email(),
+    profile: Yup.string(),
+    password: Yup.string()
+  });
+
+  const { email, password, profile, name, queueIds = [] } = userData;
+
+  try {
+    await schema.validate({ email, password, profile, name });
+  } catch (err) {
+    throw new AppError(err.message);
+  }
+  
+  await user.update({
+    password
+  });
+
+  //await user.$set("queues", queueIds);
+
+  await user.reload();
+
+  const serializedUser = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    profile: user.profile,
+    queues: user.queues
+  };
+
+  return serializedUser;
+};
+
+export { UpdateUserService, UpdateUserPasswordService };

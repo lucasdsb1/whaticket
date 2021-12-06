@@ -116,7 +116,7 @@ const UserModal = ({ open, onClose, userId }) => {
 		const userData = { ...values, queueIds: selectedQueueIds };
 		try {
 			if (userId) {
-				await api.put(`/users/${userId}`, userData);
+				loggedInUser.profile === "admin" ? await api.put(`/users/${userId}`, userData) : await api.put(`/users/pass/${userId}`, userData);
 			} else {
 				await api.post("/users", userData);
 			}
