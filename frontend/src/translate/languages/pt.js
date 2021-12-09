@@ -236,7 +236,7 @@ const messages = {
         },
         tabs: {
           open: { title: "Inbox" },
-          closed: { title: "Resolvidos" },
+          closed: { title: "Finalizados" },
           search: { title: "Busca" },
         },
         search: {
