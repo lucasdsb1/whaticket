@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { getIO } from "../libs/socket";
+import Queue from "../models/Queue";
+import ListQueuesService from "../services/QueueService/ListQueuesService";
+import ShowQueueService from "../services/QueueService/ShowQueueService";
 
 import CreateTicketService from "../services/TicketServices/CreateTicketService";
 import DeleteTicketService from "../services/TicketServices/DeleteTicketService";
@@ -87,11 +90,24 @@ export const update = async (
 ): Promise<Response> => {
   const { ticketId } = req.params;
   const ticketData: TicketData = req.body;
+  const ticketBeforeUpdate = await ShowTicketService(ticketId);
 
   const { ticket } = await UpdateTicketService({
     ticketData,
     ticketId
   });
+
+  if (ticket.status === "pending" && ticketData.queueId && ticketBeforeUpdate.queueId) {
+    if (ticketBeforeUpdate.queueId !== ticket.queueId) {
+      const queue = await ShowQueueService(ticket.queueId);
+      if (queue.greetingMessage) {
+        await SendWhatsAppMessage({
+          body: queue.greetingMessage,
+          ticket
+        });
+      }
+    }
+  }
 
   if (ticket.status === "closed") {
     const whatsapp = await ShowWhatsAppService(ticket.whatsappId);

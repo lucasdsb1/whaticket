@@ -221,7 +221,7 @@ const LoggedInLayout = ({ children }) => {
           >
             Whaticket 📲 | +55 82 4007-2766
           </Typography>
-          {user.id && <NotificationsPopOver />}
+          {/* {user.id && <NotificationsPopOver />} */}
 
           <div>
             <IconButton
