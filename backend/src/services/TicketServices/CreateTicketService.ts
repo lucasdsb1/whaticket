@@ -8,12 +8,14 @@ interface Request {
   contactId: number;
   status: string;
   userId: number;
+  queueId: number;
 }
 
 const CreateTicketService = async ({
   contactId,
   status,
-  userId
+  userId,
+  queueId
 }: Request): Promise<Ticket> => {
   const defaultWhatsapp = await GetDefaultWhatsApp();
 
@@ -25,7 +27,8 @@ const CreateTicketService = async ({
     contactId,
     status,
     isGroup,
-    userId
+    userId,
+    queueId
   });
 
   const ticket = await Ticket.findByPk(id, { include: ["contact"] });

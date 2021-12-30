@@ -20,12 +20,38 @@ import ContactModal from "../ContactModal";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
+//test
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
+//endtest
+
 const filter = createFilterOptions({
 	trim: true,
 });
 
+//test
+const useStyles = makeStyles((theme) => ({
+	maxWidth: {
+	  width: "100%",
+	  marginTop: 20
+	},
+}));
+//endtest
+
 const NewTicketModal = ({ modalOpen, onClose }) => {
 	const history = useHistory();
+	
+	//test
+	const classes = useStyles();
+	//endtest
+
+	//test
+	//const [queues, setQueues] = useState([]);
+	const [selectedQueue, setSelectedQueue] = useState('');
+	//endtest
 
 	const [options, setOptions] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -64,15 +90,17 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 		onClose();
 		setSearchParam("");
 		setSelectedContact(null);
+		setSelectedQueue("");
 	};
 
-	const handleSaveTicket = async contactId => {
+	const handleSaveTicket = async (contactId, queueId) => {
 		if (!contactId) return;
 		setLoading(true);
 		try {
 			const { data: ticket } = await api.post("/tickets", {
 				contactId: contactId,
 				userId: user.id,
+				queueId: queueId,
 				status: "open",
 			});
 			history.push(`/tickets/${ticket.id}`);
@@ -160,12 +188,12 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 								variant="outlined"
 								autoFocus
 								onChange={e => setSearchParam(e.target.value)}
-								onKeyPress={e => {
-									if (loading || !selectedContact) return;
-									else if (e.key === "Enter") {
-										handleSaveTicket(selectedContact.id);
-									}
-								}}
+								// onKeyPress={e => {
+								// 	if (loading || !selectedContact) return;
+								// 	else if (e.key === "Enter") {
+								// 		handleSaveTicket(selectedContact.id);
+								// 	}
+								// }}
 								InputProps={{
 									...params.InputProps,
 									endAdornment: (
@@ -180,6 +208,21 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 							/>
 						)}
 					/>
+					{/* teste */}
+					<FormControl variant="outlined" className={classes.maxWidth}>
+						<InputLabel>{i18n.t("transferTicketModal.fieldQueueLabel")}</InputLabel>
+						<Select
+							value={selectedQueue}
+							onChange={(e) => setSelectedQueue(e.target.value)}
+							label={i18n.t("transferTicketModal.fieldQueuePlaceholder")}
+						>
+							<MenuItem value={''}>&nbsp;</MenuItem>
+							{user.queues.map((queue) => (
+								<MenuItem key={queue.id} value={queue.id}>{queue.name}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+					{/* endtest */}
 				</DialogContent>
 				<DialogActions>
 					<Button
@@ -193,8 +236,8 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 					<ButtonWithSpinner
 						variant="contained"
 						type="button"
-						disabled={!selectedContact}
-						onClick={() => handleSaveTicket(selectedContact.id)}
+						disabled={(selectedQueue === "" || selectedContact === null || selectedContact === "")}
+						onClick={() => handleSaveTicket(selectedContact.id, selectedQueue)}
 						color="primary"
 						loading={loading}
 					>
