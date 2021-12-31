@@ -74,7 +74,6 @@ const useStyles = makeStyles(theme => ({
 const reducer = (state, action) => {
 	if (action.type === "LOAD_TICKETS") {
 		const newTickets = action.payload;
-
 		newTickets.forEach(ticket => {
 			const ticketIndex = state.findIndex(t => t.id === ticket.id);
 			if (ticketIndex !== -1) {
@@ -86,7 +85,6 @@ const reducer = (state, action) => {
 				state.push(ticket);
 			}
 		});
-
 		return [...state];
 	}
 
@@ -172,7 +170,6 @@ const reducer = (state, action) => {
 		showAll,
 		queueIds: JSON.stringify(selectedQueueIds),
 	});
-
 	useEffect(() => {
 		if (!status && !searchParam) return;
 		dispatch({

@@ -20,39 +20,27 @@ import ContactModal from "../ContactModal";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
-//test
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import { makeStyles } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-//endtest
 
 const filter = createFilterOptions({
 	trim: true,
 });
 
-//test
 const useStyles = makeStyles((theme) => ({
 	maxWidth: {
 	  width: "100%",
 	  marginTop: 20
 	},
 }));
-//endtest
 
 const NewTicketModal = ({ modalOpen, onClose }) => {
 	const history = useHistory();
-	
-	//test
 	const classes = useStyles();
-	//endtest
-
-	//test
-	//const [queues, setQueues] = useState([]);
 	const [selectedQueue, setSelectedQueue] = useState('');
-	//endtest
-
 	const [options, setOptions] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [searchParam, setSearchParam] = useState("");
@@ -112,6 +100,9 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 	};
 
 	const handleSelectOption = (e, newValue) => {
+		if (!newValue) {
+			setSelectedContact(null);
+		} 
 		if (newValue?.number) {
 			setSelectedContact(newValue);
 		} else if (newValue?.name) {
@@ -208,7 +199,6 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 							/>
 						)}
 					/>
-					{/* teste */}
 					<FormControl variant="outlined" className={classes.maxWidth}>
 						<InputLabel>{i18n.t("transferTicketModal.fieldQueueLabel")}</InputLabel>
 						<Select
@@ -222,7 +212,6 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 							))}
 						</Select>
 					</FormControl>
-					{/* endtest */}
 				</DialogContent>
 				<DialogActions>
 					<Button

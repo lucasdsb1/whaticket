@@ -136,6 +136,21 @@ const TicketListItem = ({ ticket }) => {
 		history.push(`/tickets/${id}`);
 	};
 
+	const queueName = selectedTicket => {
+		let name = null;
+		let color = null;
+		user.queues.forEach(userQueue => {
+			if (userQueue.id === selectedTicket.queueId) {
+				name = userQueue.name;
+				color = userQueue.color;
+			}
+		});
+		return {
+			name,
+			color
+		};
+	}
+
 	return (
 		<React.Fragment key={ticket.id}>
 			<ListItem
@@ -161,10 +176,10 @@ const TicketListItem = ({ ticket }) => {
 				<Tooltip
 					arrow
 					placement="right"
-					title={ticket.queue?.name || "Sem fila"}
+					title={ticket.queue?.name || queueName(ticket)?.name || "Sem fila"}
 				>
 					<span
-						style={{ backgroundColor: ticket.queue?.color || "#7C7C7C" }}
+						style={{ backgroundColor: ticket.queue?.color || queueName(ticket)?.color || "#7C7C7C" }}
 						className={classes.ticketQueueColor}
 					></span>
 				</Tooltip>
