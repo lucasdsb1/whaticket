@@ -161,6 +161,10 @@ const LoggedInLayout = ({ children }) => {
     }
   };
 
+  const handleOpenUpdatesPage = () => {
+    return `${process.env.REACT_APP_UPDATES_URL}`;
+  }
+
   if (loading) {
     return <BackdropLoading />;
   }
@@ -219,7 +223,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            Whaticket 📲 | +55 82 4007-2766
+            Whaticket 📲 | Veja as novidades! (<a href={handleOpenUpdatesPage()} style={{color: "white"}} target="_blank">clique aqui</a>)
           </Typography>
           {user.id && <NotificationsPopOver />}
 
