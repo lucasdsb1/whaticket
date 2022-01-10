@@ -200,11 +200,11 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 						)}
 					/>
 					<FormControl variant="outlined" className={classes.maxWidth}>
-						<InputLabel>{i18n.t("transferTicketModal.fieldQueueLabel")}</InputLabel>
+						<InputLabel>{i18n.t("newTicketModal.queue")}</InputLabel>
 						<Select
 							value={selectedQueue}
 							onChange={(e) => setSelectedQueue(e.target.value)}
-							label={i18n.t("transferTicketModal.fieldQueuePlaceholder")}
+							label={i18n.t("newTicketModal.queue")}
 						>
 							<MenuItem value={''}>&nbsp;</MenuItem>
 							{user.queues.map((queue) => (

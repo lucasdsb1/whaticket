@@ -27,6 +27,7 @@ interface TicketData {
   status: string;
   queueId: number;
   userId: number;
+  sendFarewellMessage: boolean;
 }
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
@@ -114,7 +115,7 @@ export const update = async (
 
     const { farewellMessage } = whatsapp;
 
-    if (farewellMessage) {
+    if (farewellMessage && (ticketData.sendFarewellMessage || ticketData.sendFarewellMessage === undefined)) {
        await SendWhatsAppMessage({
         body: farewellMessage,
         ticket

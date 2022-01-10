@@ -267,7 +267,13 @@ const messages = {
         buttons: {
           accept: "Aceptar (🤖✅)",
           acceptBeforeBot: "Aceptar (🤖⚠️)",
+          start: "Comienzo",
+          cancel: "Cancelar"
         },
+        acceptModal: {
+          title: "Aceptar servicio",
+          queue: "Elige la cola"
+        }
       },
       newTicketModal: {
         title: "Crear Ticket",
@@ -276,7 +282,9 @@ const messages = {
         buttons: {
           ok: "Guardar",
           cancel: "Cancelar",
+          start: "Iniciar"
         },
+        queue: "Elige la cola"
       },
       mainDrawer: {
         listItems: {

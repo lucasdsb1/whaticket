@@ -266,16 +266,24 @@ const messages = {
         buttons: {
           accept: "Aceitar (🤖✅)",
           acceptBeforeBot: "Aceitar (🤖⚠️)",
+          start: "Iniciar",
+          cancel: "Cancelar"
         },
+        acceptModal: {
+          title: "Aceitar atendimento",
+          queue: "Escolha a fila"
+        }
       },
       newTicketModal: {
-        title: "Criar Ticket",
+        title: "Criar ticket",
         fieldLabel: "Digite para pesquisar o contato",
         add: "Adicionar",
         buttons: {
           ok: "Salvar",
           cancel: "Cancelar",
+          start: "Iniciar"
         },
+        queue: "Escolha a fila"
       },
       mainDrawer: {
         listItems: {
@@ -400,8 +408,10 @@ const messages = {
       ticketOptionsMenu: {
         delete: "Deletar",
         transfer: "Transferir",
+        resolveWithNoFarewell: "Finalizar sem despedida",
         confirmationModal: {
-          title: "Deletar o ticket do contato",
+          title: "Deletar o ticket número ",
+          titleFrom: "do contato ",
           message:
             "Atenção! Todas as mensagens relacionadas ao ticket serão perdidas.",
         },

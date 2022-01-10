@@ -25,6 +25,7 @@ import api from "../../services/api";
 import TableRowSkeleton from "../../components/TableRowSkeleton";
 import ContactModal from "../../components/ContactModal";
 import ConfirmationModal from "../../components/ConfirmationModal/";
+import NewTicketModalModalFromContact from "../../components/NewTicketModalFromContactList"
 
 import { i18n } from "../../translate/i18n";
 import MainHeader from "../../components/MainHeader";
@@ -99,6 +100,7 @@ const Contacts = () => {
   const [searchParam, setSearchParam] = useState("");
   const [contacts, dispatch] = useReducer(reducer, []);
   const [selectedContactId, setSelectedContactId] = useState(null);
+  const [newTicketModalModalFromContactOpen, setNewTicketModalModalFromContact] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [deletingContact, setDeletingContact] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -154,6 +156,11 @@ const Contacts = () => {
   const handleOpenContactModal = () => {
     setSelectedContactId(null);
     setContactModalOpen(true);
+  };
+
+  const handleOpenNewTicketModalModalFromContact = async (contactId) => {
+    setSelectedContactId(contactId)
+    setNewTicketModalModalFromContact(true);
   };
 
   const handleCloseContactModal = () => {
@@ -223,6 +230,11 @@ const Contacts = () => {
         aria-labelledby="form-dialog-title"
         contactId={selectedContactId}
       ></ContactModal>
+      <NewTicketModalModalFromContact
+        modalOpen={newTicketModalModalFromContactOpen}
+        onClose={(e) => setNewTicketModalModalFromContact(false)}
+        contactId={selectedContactId}
+      />
       <ConfirmationModal
         title={
           deletingContact
@@ -309,7 +321,7 @@ const Contacts = () => {
                   <TableCell align="center">
                     <IconButton
                       size="small"
-                      onClick={() => handleSaveTicket(contact.id)}
+                      onClick={() => handleOpenNewTicketModalModalFromContact(contact.id)}
                     >
                       <WhatsAppIcon />
                     </IconButton>

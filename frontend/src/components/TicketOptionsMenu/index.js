@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
+import { useHistory } from "react-router-dom";
+
 import { i18n } from "../../translate/i18n";
 import api from "../../services/api";
 import ConfirmationModal from "../ConfirmationModal";
@@ -14,6 +16,8 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 const TicketOptionsMenu = ({ ticket, menuOpen, handleClose, anchorEl }) => {
 	const [confirmationOpen, setConfirmationOpen] = useState(false);
 	const [transferTicketModalOpen, setTransferTicketModalOpen] = useState(false);
+	const history = useHistory();
+	const [loading, setLoading] = useState(false);
 	const isMounted = useRef(true);
 	const { user } = useContext(AuthContext);
 
@@ -47,6 +51,23 @@ const TicketOptionsMenu = ({ ticket, menuOpen, handleClose, anchorEl }) => {
 		}
 	};
 
+	const handleCloseTicketWithoutFarewellMsg = async () => {
+		setLoading(true);
+		try {
+			await api.put(`/tickets/${ticket.id}`, {
+				status: "closed",
+				userId: user?.id || null,
+				sendFarewellMessage: false
+			});
+
+			setLoading(false);
+			history.push("/tickets");
+		} catch (err) {
+			setLoading(false);
+			toastError(err);
+		}
+	};
+
 	return (
 		<>
 			<Menu
@@ -67,6 +88,9 @@ const TicketOptionsMenu = ({ ticket, menuOpen, handleClose, anchorEl }) => {
 			>
 				<MenuItem onClick={handleOpenTransferModal}>
 					{i18n.t("ticketOptionsMenu.transfer")}
+				</MenuItem>
+				<MenuItem onClick={handleCloseTicketWithoutFarewellMsg}>
+					{i18n.t("ticketOptionsMenu.resolveWithNoFarewell")}
 				</MenuItem>
 				<Can
 					role={user.profile}

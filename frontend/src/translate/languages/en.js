@@ -263,7 +263,13 @@ const messages = {
         buttons: {
           accept: "Accept (🤖✅)",
           acceptBeforeBot: "Accept (🤖⚠️)",
+          start: "Start",
+          cancel: "Cancel"
         },
+        acceptModal: {
+          title: "Accept ticket",
+          queue: "Choose a queue"
+        }
       },
       newTicketModal: {
         title: "Create Ticket",
@@ -272,7 +278,9 @@ const messages = {
         buttons: {
           ok: "Save",
           cancel: "Cancel",
+          start: "Iniciar"
         },
+        queue: "Choose a queue"
       },
       mainDrawer: {
         listItems: {

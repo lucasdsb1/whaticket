@@ -22,6 +22,7 @@ import MarkdownWrapper from "../MarkdownWrapper";
 import { Tooltip } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import toastError from "../../errors/toastError";
+import AcceptTicketWithouSelectQueue from "../AcceptTicketWithoutQueueModal";
 
 const useStyles = makeStyles(theme => ({
 	ticket: {
@@ -107,6 +108,7 @@ const TicketListItem = ({ ticket }) => {
 	const [loading, setLoading] = useState(false);
 	const { ticketId } = useParams();
 	const isMounted = useRef(true);
+	const [acceptTicketWithouSelectQueueOpen, setAcceptTicketWithouSelectQueueOpen] = useState(false);
 	const { user } = useContext(AuthContext);
 
 	useEffect(() => {
@@ -151,8 +153,17 @@ const TicketListItem = ({ ticket }) => {
 		};
 	}
 
+	const handleOpenAcceptTicketWithouSelectQueue = () => {
+		setAcceptTicketWithouSelectQueueOpen(true);
+	};
+
 	return (
 		<React.Fragment key={ticket.id}>
+			<AcceptTicketWithouSelectQueue
+				modalOpen={acceptTicketWithouSelectQueueOpen}
+				onClose={(e) => setAcceptTicketWithouSelectQueueOpen(false)}
+				ticketId={ticket.id}
+			/>
 			<ListItem
 				dense
 				button
@@ -266,7 +277,7 @@ const TicketListItem = ({ ticket }) => {
 						className={classes.acceptButton}
 						size="small"
 						loading={loading}
-						onClick={e => handleAcepptTicket(ticket.id)}
+						onClick={e => handleOpenAcceptTicketWithouSelectQueue()}
 					>
 						{i18n.t("ticketsList.buttons.acceptBeforeBot")}
 					</ButtonWithSpinner>

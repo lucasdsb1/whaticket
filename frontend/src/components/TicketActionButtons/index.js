@@ -12,6 +12,8 @@ import ButtonWithSpinner from "../ButtonWithSpinner";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
+import AcceptTicketWithouSelectQueue from "../AcceptTicketWithoutQueueModal";
+
 const useStyles = makeStyles(theme => ({
 	actionButtons: {
 		marginRight: 6,
@@ -31,6 +33,7 @@ const TicketActionButtons = ({ ticket }) => {
 	const [loading, setLoading] = useState(false);
 	const ticketOptionsMenuOpen = Boolean(anchorEl);
 	const { user } = useContext(AuthContext);
+	const [acceptTicketWithouSelectQueueOpen, setAcceptTicketWithouSelectQueueOpen] = useState(false);
 
 	const handleOpenTicketOptionsMenu = e => {
 		setAnchorEl(e.currentTarget);
@@ -38,6 +41,10 @@ const TicketActionButtons = ({ ticket }) => {
 
 	const handleCloseTicketOptionsMenu = e => {
 		setAnchorEl(null);
+	};
+
+	const handleOpenAcceptTicketWithouSelectQueue = () => {
+		setAcceptTicketWithouSelectQueueOpen(true);
 	};
 
 	const handleUpdateTicketStatus = async (e, status, userId) => {
@@ -62,6 +69,13 @@ const TicketActionButtons = ({ ticket }) => {
 
 	return (
 		<div className={classes.actionButtons}>
+			{
+				<AcceptTicketWithouSelectQueue
+					modalOpen={acceptTicketWithouSelectQueueOpen}
+					onClose={(e) => setAcceptTicketWithouSelectQueueOpen(false)}
+					ticketId={ticket.id}
+				/>
+			}
 			{ticket.status === "closed" && (
 				<ButtonWithSpinner
 					loading={loading}
@@ -119,7 +133,7 @@ const TicketActionButtons = ({ ticket }) => {
 					size="small"
 					variant="contained"
 					color="secondary"
-					onClick={e => handleUpdateTicketStatus(e, "open", user?.id)}
+					onClick={e => handleOpenAcceptTicketWithouSelectQueue()}
 				>
 					{i18n.t("messagesList.header.buttons.acceptBeforeBot")}
 				</ButtonWithSpinner>
