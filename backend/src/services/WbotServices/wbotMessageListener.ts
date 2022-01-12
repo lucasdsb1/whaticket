@@ -216,7 +216,8 @@ const handleMessage = async (
   wbot: Session
 ): Promise<void> => {
   if (!isValidMsg(msg)) {
-    return;
+    msg.body = (process.env.NOT_SUPPORTED_MSG || "NOT_SUPPORTED_MSG:") + " " + `*${msg.type.toString().toLocaleUpperCase()}*`;
+    // return;
   }
 
   try {
