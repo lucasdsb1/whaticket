@@ -223,7 +223,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            Whaticket 📲 | Veja as novidades! (<a href={handleOpenUpdatesPage()} style={{color: "white"}} target="_blank">clique aqui</a>)
+            <span>Whaticket 📲 | Veja as novidades! (<a href={handleOpenUpdatesPage()} rel="noopener noreferrer" style={{color: "white"}} target="_blank">clique aqui</a>)</span>
           </Typography>
           {user.id && <NotificationsPopOver />}
 

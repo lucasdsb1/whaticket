@@ -168,21 +168,21 @@ const Contacts = () => {
     setContactModalOpen(false);
   };
 
-  const handleSaveTicket = async (contactId) => {
-    if (!contactId) return;
-    setLoading(true);
-    try {
-      const { data: ticket } = await api.post("/tickets", {
-        contactId: contactId,
-        userId: user?.id,
-        status: "open",
-      });
-      history.push(`/tickets/${ticket.id}`);
-    } catch (err) {
-      toastError(err);
-    }
-    setLoading(false);
-  };
+  // const handleSaveTicket = async (contactId) => {
+  //   if (!contactId) return;
+  //   setLoading(true);
+  //   try {
+  //     const { data: ticket } = await api.post("/tickets", {
+  //       contactId: contactId,
+  //       userId: user?.id,
+  //       status: "open",
+  //     });
+  //     history.push(`/tickets/${ticket.id}`);
+  //   } catch (err) {
+  //     toastError(err);
+  //   }
+  //   setLoading(false);
+  // };
 
   const hadleEditContact = (contactId) => {
     setSelectedContactId(contactId);

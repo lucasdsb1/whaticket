@@ -22,6 +22,8 @@ import {
 } from "@material-ui/icons";
 
 import MarkdownWrapper from "../MarkdownWrapper";
+import VcardPreview from "../VcardPreview";
+import LocationPreview from "../LocationPreview";
 import ModalImageCors from "../ModalImageCors";
 import MessageOptionsMenu from "../MessageOptionsMenu";
 import whatsBackground from "../../assets/wa-background.png";
@@ -413,18 +415,64 @@ const MessagesList = ({ ticketId, isGroup }) => {
   };
 
   const checkMessageMedia = (message) => {
-    if (message.mediaType === "image") {
+	if(message.mediaType === "location" && message.body.split('|').length >= 2) {
+		let locationParts = message.body.split('|')
+		let imageLocation = locationParts[0]		
+		let linkLocation = locationParts[1]
+		
+		let descriptionLocation = null
+		
+		if(locationParts.length > 2)
+			descriptionLocation = message.body.split('|')[2]
+		
+		return <LocationPreview image={imageLocation} link={linkLocation} description={descriptionLocation} />
+	}
+	else if (message.mediaType === "vcard") {
+		//console.log("vcard")
+		//console.log(message)
+		let array = message.body.split("\n");
+		let obj = [];
+		let contact = "";
+		for (let index = 0; index < array.length; index++) {
+			const v = array[index];
+			let values = v.split(":");
+			for (let ind = 0; ind < values.length; ind++) {
+				if (values[ind].indexOf("+") !== -1) {
+					obj.push({ number: values[ind] });
+				}
+				if (values[ind].indexOf("FN") !== -1) {
+					contact = values[ind + 1];
+				}
+			}
+		}
+		return <VcardPreview contact={contact} numbers={obj[0].number} completeNumbers={obj} />
+	} 
+  /*else if (message.mediaType === "multi_vcard") {
+		console.log("multi_vcard")
+		console.log(message)
+		
+		if(message.body !== null && message.body !== "") {
+			let newBody = JSON.parse(message.body)
+			return (
+				<>
+				  {
+					newBody.map(v => (
+					  <VcardPreview contact={v.name} numbers={v.number} />
+					))
+				  }
+				</>
+			)
+		} else return (<></>)
+	}*/
+  else if (message.mediaType === "image") {
       return <ModalImageCors imageUrl={message.mediaUrl} />;
-    }
-    if (message.mediaType === "audio") {
+    } else if (message.mediaType === "audio") {
       return (
         <audio controls>
           <source src={message.mediaUrl} type="audio/ogg"></source>
         </audio>
       );
-    }
-
-    if (message.mediaType === "video") {
+    } else if (message.mediaType === "video") {
       return (
         <video
           className={classes.messageMedia}
@@ -569,7 +617,9 @@ const MessagesList = ({ ticketId, isGroup }) => {
                     {message.contact?.name}
                   </span>
                 )}
-                {message.mediaUrl && checkMessageMedia(message)}
+                {(message.mediaUrl || message.mediaType === "location" || message.mediaType === "vcard" 
+                //|| message.mediaType === "multi_vcard" 
+                ) && checkMessageMedia(message)}
                 <div className={classes.textContentItem}>
                   {message.quotedMsg && renderQuotedMessage(message)}
                   <MarkdownWrapper>{message.body}</MarkdownWrapper>
@@ -596,7 +646,9 @@ const MessagesList = ({ ticketId, isGroup }) => {
                 >
                   <ExpandMore />
                 </IconButton>
-                {message.mediaUrl && checkMessageMedia(message)}
+                {(message.mediaUrl || message.mediaType === "location" || message.mediaType === "vcard" 
+                //|| message.mediaType === "multi_vcard" 
+                ) && checkMessageMedia(message)}
                 <div
                   className={clsx(classes.textContentItem, {
                     [classes.textContentItemDeleted]: message.isDeleted,

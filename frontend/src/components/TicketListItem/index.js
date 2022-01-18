@@ -242,7 +242,7 @@ const TicketListItem = ({ ticket }) => {
 								color="textSecondary"
 							>
 								{ticket.lastMessage ? (
-									<MarkdownWrapper>{ticket.lastMessage}</MarkdownWrapper>
+									<MarkdownWrapper>{ticket.lastMessage.includes('BEGIN:VCARD') ? "VCARD" : ticket.lastMessage}</MarkdownWrapper>
 								) : (
 									<br />
 								)}

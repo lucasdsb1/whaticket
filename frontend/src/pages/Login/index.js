@@ -1,21 +1,17 @@
 import React, { useState, useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
-  Grid,
   Box,
   Typography,
   Container,
   InputAdornment,
   IconButton,
-  Link
 } from '@material-ui/core';
 
-import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import logo from '../../assets/printpagelogo.png'
 
