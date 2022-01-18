@@ -46,7 +46,6 @@ const Settings = () => {
 		const fetchSession = async () => {
 			try {
 				const { data } = await api.get("/settings");
-				console.log(data);
 				setSettings(data);
 			} catch (err) {
 				toastError(err);
