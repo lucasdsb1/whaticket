@@ -127,7 +127,7 @@ const TicketActionButtons = ({ ticket }) => {
 					{i18n.t("messagesList.header.buttons.accept")}
 				</ButtonWithSpinner>
 			)}
-			{(ticket.status === "pending" && ticket.queue === null) && (
+			{(ticket.status === "pending" && (ticket.queue === null || ticket.queue === undefined)) && (
 				<ButtonWithSpinner
 					loading={loading}
 					size="small"

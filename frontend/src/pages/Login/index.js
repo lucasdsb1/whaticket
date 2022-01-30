@@ -13,7 +13,7 @@ import {
 
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
-import logo from '../../assets/printpagelogo.png'
+import logo from '../../assets/logo.png'
 
 import { makeStyles } from "@material-ui/core/styles";
 

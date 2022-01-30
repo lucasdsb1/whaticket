@@ -434,6 +434,12 @@ const messages = {
           message: "Esta acción no puede ser revertida.",
         },
       },
+      vCardPreview: {
+        chat: "Hablar"
+      },
+      locationPreview: {
+        view: "Para ver"
+      },
       backendErrors: {
         ERR_NO_OTHER_WHATSAPP:
           "Debe haber al menos una conexión de WhatsApp predeterminada.",

@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
     color: "white",
-    backgroundColor: "#48887b"
+    backgroundColor: process.env.REACT_APP_COLOR_TOOLBAR
   },
   toolbarIcon: {
     display: "flex",

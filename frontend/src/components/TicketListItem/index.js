@@ -168,12 +168,12 @@ const TicketListItem = ({ ticket }) => {
 				dense
 				button
 				onClick={e => {
-					if (ticket.status === "pending" && ticket.queue !== null) return;
+					if (ticket.status === "pending") return;
 					handleSelectTicket(ticket.id);
 				}}
 				selected={ticketId && +ticketId === ticket.id}
 				className={clsx(classes.ticket, {
-					[classes.pendingTicket]: (ticket.status === "pending" && ticket.queue !== null),
+					[classes.pendingTicket]: (ticket.status === "pending"),
 				})}
 				// onClick={e => {
 				// 	if (ticket.status === "pending") return;
@@ -270,7 +270,7 @@ const TicketListItem = ({ ticket }) => {
 						{i18n.t("ticketsList.buttons.accept")}
 					</ButtonWithSpinner>
 				)}
-				{(ticket.status === "pending" && ticket.queue === null) && (
+				{(ticket.status === "pending" && (ticket.queue === null || ticket.queue === undefined)) && (
 					<ButtonWithSpinner
 						color="secondary"
 						variant="contained"

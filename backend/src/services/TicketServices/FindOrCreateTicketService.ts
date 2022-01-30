@@ -44,7 +44,7 @@ const FindOrCreateTicketService = async (
     ticket = await Ticket.findOne({
       where: {
         updatedAt: {
-          [Op.between]: [+subMinutes(new Date(), 15), +new Date()]
+          [Op.between]: [+subMinutes(new Date(), process.env.TIME_TO_REOPEN_TICKET ? +process.env.TIME_TO_REOPEN_TICKET : 15), +new Date()]
           //[Op.between]: [+subHours(new Date(), 2), +new Date()]
         },
         contactId: contact.id

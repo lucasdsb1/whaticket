@@ -235,13 +235,12 @@ const handleMessage = async (
   wbot: Session
 ): Promise<void> => {
   if (!isValidMsg(msg)) {
-    const typeVerify = msg.type.toString() ? msg.type.toString() : "";
-    if (typeVerify === "e2e_notification") { //bug e2e_notification
+    if (msg.type === "multi_vcard") { //unsupported multi_vcard
+      msg.body = (process.env.NOT_SUPPORTED_MSG || "NOT_SUPPORTED_MSG:") + " " + `*${msg.type.toString().toLocaleUpperCase()}*`;
+    }
+    else {
       return;
     }
-
-    msg.body = (process.env.NOT_SUPPORTED_MSG || "NOT_SUPPORTED_MSG:") + " " + `*${msg.type.toString().toLocaleUpperCase()}*`;
-    // return;
   }
 
   try {
