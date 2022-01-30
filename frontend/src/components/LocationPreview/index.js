@@ -3,6 +3,8 @@ import toastError from "../../errors/toastError";
 
 import Typography from "@material-ui/core/Typography";
 
+import { i18n } from "../../translate/i18n";
+
 import { Button, Divider, } from "@material-ui/core";
 
 const LocationPreview = ({ image, link, description }) => {
@@ -40,7 +42,7 @@ const LocationPreview = ({ image, link, description }) => {
 							color="primary"
 							onClick={handleLocation}
 							disabled={!link}
-						>Visualizar</Button>
+						>{i18n.t("locationPreview.view")}</Button>
 					</div>
 				</div>
 			</div>

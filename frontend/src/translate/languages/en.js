@@ -427,6 +427,12 @@ const messages = {
           message: "This action cannot be reverted.",
         },
       },
+      vCardPreview: {
+        chat: "Talk"
+      },
+      locationPreview: {
+        view: "View"
+      },
       backendErrors: {
         ERR_NO_OTHER_WHATSAPP:
           "There must be at lest one default WhatsApp connection.",

@@ -11,6 +11,8 @@ import { AuthContext } from "../../context/Auth/AuthContext";
 
 import { Button, Divider, } from "@material-ui/core";
 
+import { i18n } from "../../translate/i18n";
+
 const VcardPreview = ({ contact, numbers, completeNumbers }) => {
     const history = useHistory();
     const { user } = useContext(AuthContext);
@@ -52,7 +54,7 @@ const VcardPreview = ({ contact, numbers, completeNumbers }) => {
             const { data: ticket } = await api.post("/tickets", {
                 contactId: selectedContact.id,
                 userId: user.id,
-                status: "open",
+                status: "pending",
             });
             history.push(`/tickets/${ticket.id}`);
         } catch (err) {
@@ -81,7 +83,7 @@ const VcardPreview = ({ contact, numbers, completeNumbers }) => {
 							color="primary"
 							onClick={handleNewChat}
 							disabled={!selectedContact.number}
-						>Conversar</Button>
+						>{i18n.t("vCardPreview.chat")}</Button>
 					</Grid>
 				</Grid>
 			</div>
