@@ -165,6 +165,10 @@ const LoggedInLayout = ({ children }) => {
     return `${process.env.REACT_APP_UPDATES_URL}`;
   }
 
+  const handleUpdateMsg = () => {
+    return `${process.env.REACT_APP_UPDATE_MSG}`;
+  }
+
   if (loading) {
     return <BackdropLoading />;
   }
@@ -223,7 +227,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            <span>Whaticket 📲 | Veja as novidades! (<a href={handleOpenUpdatesPage()} rel="noopener noreferrer" style={{color: "white"}} target="_blank">clique aqui</a>)</span>
+            <span>Whaticket 📲 | {handleUpdateMsg()} (<a href={handleOpenUpdatesPage()} rel="noopener noreferrer" style={{color: "white"}} target="_blank">clique aqui</a>)</span>
           </Typography>
           {user.id && <NotificationsPopOver />}
 
