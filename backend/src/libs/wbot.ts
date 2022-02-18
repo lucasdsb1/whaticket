@@ -43,14 +43,16 @@ export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
         sessionCfg = JSON.parse(whatsapp.session);
       }
 
-      //const wbot: Session = new Client({ puppeteer: { headless: false }, clientId: 'bd_'+whatsapp.id });
+      const args:String = process.env.CHROME_ARGS || "";
 
       const wbot: Session = new Client({
 		session: sessionCfg,
         puppeteer: {
-           executablePath: process.env.CHROME_BIN || undefined
-         },
-		 clientId: 'bd_'+whatsapp.id
+          executablePath: process.env.CHROME_BIN || undefined,
+          // @ts-ignore
+          browserWSEndpoint: process.env.CHROME_WS || undefined,
+          args: args.split(' ')
+        }
       });
 
       wbot.initialize();
