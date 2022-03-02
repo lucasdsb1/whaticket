@@ -5,6 +5,7 @@ dist
 .env
 .env.test
 WWebJS
+.wwebjs_auth
 
 package-lock.json
 yarn.lock
@@ -12,6 +13,6 @@ yarn-error.log
 
 /src/config/sentry.js
 
-# Ignore test-related files
+# Ignore test-related file
 /coverage.data
 /coverage/
