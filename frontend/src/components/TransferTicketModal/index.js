@@ -84,6 +84,7 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 	const handleClose = () => {
 		onClose();
 		setSearchParam("");
+		setSelectedQueue("");
 		setSelectedUser(null);
 	};
 
@@ -131,9 +132,10 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 							setSelectedUser(newValue);
 							if (newValue != null && Array.isArray(newValue.queues)) {
 								setQueues(newValue.queues);
+								setSelectedQueue("");
 							} else {
 								setQueues(allQueues);
-								setSelectedQueue('');
+								setSelectedQueue("");
 							}
 						}}
 						options={options}
@@ -168,6 +170,7 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 						<InputLabel>{i18n.t("transferTicketModal.fieldQueueLabel")}</InputLabel>
 						<Select
 							value={selectedQueue}
+							required
 							onChange={(e) => setSelectedQueue(e.target.value)}
 							label={i18n.t("transferTicketModal.fieldQueuePlaceholder")}
 						>
@@ -188,6 +191,7 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 						{i18n.t("transferTicketModal.buttons.cancel")}
 					</Button>
 					<ButtonWithSpinner
+						disabled={(selectedQueue === "")}
 						variant="contained"
 						type="submit"
 						color="primary"
