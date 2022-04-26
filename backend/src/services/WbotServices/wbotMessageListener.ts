@@ -250,36 +250,42 @@ const isValidMsg = (msg: WbotMessage): boolean => {
 
 const handleMessage = async (
   msg: WbotMessage,
-  wbot: Session
+  wbot: Session,
+  runningSyncMsgs: boolean = false
 ): Promise<void> => {
   if (!isValidMsg(msg)) {
     if (msg.type === "multi_vcard") { //unsupported multi_vcard
       msg.body = (process.env.NOT_SUPPORTED_MSG || "NOT_SUPPORTED_MSG:") + " " + `*${msg.type.toString().toLocaleUpperCase()}*`;
     }
+    else if (msg.body === "BODY_NOT_LOADED" && msg.type === "ciphertext" && msg.from !== "status@broadcast") {
+      logger.info("Message with unloaded body identified!")
+      msg.body = process.env.BODY_NOT_LOADED || "BODY_NOT_LOADED";
+    }
     else {
       return;
     }
-    // else if (msg.body === "BODY_NOT_LOADED" && msg.type === "ciphertext" && msg.from !== "status@broadcast") {
-    //   logger.info("Message with unloaded body identified!")
-    //   msg.body = process.env.BODY_NOT_LOADED || "BODY_NOT_LOADED";
-    // }
   }
 
-  //Este bloco verifica se existe mensagem com o status "aguardando mensagem..."
-  // if (!msg.fromMe) {
-  //   let chats = await wbot.getChats();
-  //   const fromLimit = moment().subtract(1, 'days').startOf('day').unix()
-  //   chats = chats.filter((c) => c.timestamp >= fromLimit && !c.isGroup);
-  //   for (const chat of chats) {
-  //     let currentChatMsgs = await chat.fetchMessages({limit: 1});
-  //     for (const message of currentChatMsgs) {
-  //       if (!isValidMsg(message) && message.type === "ciphertext" && message.from !== msg.from) {
-  //         message.body = "BODY_NOT_LOADED";
-  //         await handleMessage(message, wbot);
-  //       }
-  //     }
-  //   }
-  // }
+  //Este bloco verifica se existe mensagem com o status "aguardando mensagem... [ESPERAMOS QUE ELE DE FATO CONSIGA FAZER ISSO]"
+  if (!msg.fromMe && !runningSyncMsgs) {
+    let chats = await wbot.getChats();
+    const fromLimit = moment().subtract(1, 'days').startOf('day').unix()
+    chats = chats.filter((c) => c.timestamp >= fromLimit && !c.isGroup);
+    for (const chat of chats) {
+      if (chat.unreadCount > 0) {
+        const unreadMessages = await chat.fetchMessages({
+          limit: 1
+        });
+  
+        for (const message of unreadMessages) {
+          if (!isValidMsg(message) && message.type === "ciphertext" && message.from !== msg.from) {
+            message.body = "BODY_NOT_LOADED";
+            await handleMessage(message, wbot);
+          }
+        }
+      }
+    }
+  }
 
   try {
     let msgContact: WbotContact;

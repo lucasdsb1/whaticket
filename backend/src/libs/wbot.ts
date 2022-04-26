@@ -24,12 +24,17 @@ const syncUnreadMessages = async (wbot: Session) => {
       });
 
       for (const msg of unreadMessages) {
-        await handleMessage(msg, wbot);
+        if (msg.type === "ciphertext") {
+          msg.body = "BODY_NOT_LOADED";
+        }
+
+        await handleMessage(msg, wbot, true);
       }
 
       await chat.sendSeen();
     }
   }
+  logger.info("Sync unread messages finished.")
 };
 
 export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
