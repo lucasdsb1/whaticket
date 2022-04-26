@@ -25,6 +25,8 @@ import UpdateTicketService from "../TicketServices/UpdateTicketService";
 import CreateContactService from "../ContactServices/CreateContactService";
 import GetContactService from "../ContactServices/GetContactService";
 import formatBody from "../../helpers/Mustache";
+import SendWhatsAppMessage from "./SendWhatsAppMessage";
+import moment from "moment";
 
 interface Session extends Client {
   id?: number;
@@ -162,6 +164,22 @@ const verifyQueue = async (
   contact: Contact
 ) => {
   const { queues, greetingMessage } = await ShowWhatsAppService(wbot.id!);
+  //EDITANDO AQUI
+  // if (new Date().getHours() >= 18 && new Date().getHours() < 8 && msg.to !== msg.from && !msg.fromMe) {
+  //   const sendMsgForNotAvaliableAttendance = debounce(
+  //     async () => {
+  //       const sentMessage = await wbot.sendMessage(
+  //         `${contact.number}@c.us`,
+  //         "Testando envio de mensagem"
+  //       );
+  //       verifyMessage(sentMessage, ticket, contact);
+  //     },
+  //     3000,
+  //     ticket.id
+  //   );
+  //   sendMsgForNotAvaliableAttendance();
+  //   return;
+  // }
 
   if (queues.length === 1) {
     await UpdateTicketService({
@@ -238,8 +256,28 @@ const handleMessage = async (
     if (msg.type === "multi_vcard") { //unsupported multi_vcard
       msg.body = (process.env.NOT_SUPPORTED_MSG || "NOT_SUPPORTED_MSG:") + " " + `*${msg.type.toString().toLocaleUpperCase()}*`;
     }
+    else if (msg.body === "BODY_NOT_LOADED" && msg.type === "ciphertext" && msg.from !== "status@broadcast") {
+      logger.info("Message with unloaded body identified!");
+      msg.body = process.env.BODY_NOT_LOADED || "BODY_NOT_LOADED";
+    }
     else {
       return;
+    }
+  }
+
+  //Este bloco verifica se existe mensagem com o status "aguardando mensagem..."
+  if (!msg.fromMe) {
+    let chats = await wbot.getChats();
+    const fromLimit = moment().subtract(1, 'days').startOf('day').unix()
+    chats = chats.filter((c) => c.timestamp >= fromLimit && !c.isGroup);
+    for (const chat of chats) {
+      let currentChatMsgs = await chat.fetchMessages({limit: 1});
+      for (const message of currentChatMsgs) {
+        if (!isValidMsg(message) && message.type === "ciphertext" && message.from !== msg.from) {
+          message.body = "BODY_NOT_LOADED";
+          await handleMessage(message, wbot);
+        }
+      }
     }
   }
 
