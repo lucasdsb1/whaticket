@@ -456,6 +456,7 @@ const messages = {
         ERR_SENDING_WAPP_MSG:
           "Error al enviar el mensaje de WhatsApp. Verifique la página de conexiones.",
         ERR_DELETE_WAPP_MSG: "No se pudo borrar el mensaje de WhatsApp.",
+        ERR_CONTACT_MSG_DELETED: "Es posible que este mensaje haya sido eliminado.",
         ERR_OTHER_OPEN_TICKET: "Este contacto ya está en servicio en la cola ",
         ERR_OTHER_OPEN_TICKET_2: "con el usuario ",
         ERR_SESSION_EXPIRED: "Sesión caducada. Inicie sesión.",
