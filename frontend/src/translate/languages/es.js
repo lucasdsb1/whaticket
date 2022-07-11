@@ -456,7 +456,8 @@ const messages = {
         ERR_SENDING_WAPP_MSG:
           "Error al enviar el mensaje de WhatsApp. Verifique la página de conexiones.",
         ERR_DELETE_WAPP_MSG: "No se pudo borrar el mensaje de WhatsApp.",
-        ERR_OTHER_OPEN_TICKET: "Ya hay un ticket abierto para este contacto.",
+        ERR_OTHER_OPEN_TICKET: "Este contacto ya está en servicio en la cola ",
+        ERR_OTHER_OPEN_TICKET_2: "con el usuario ",
         ERR_SESSION_EXPIRED: "Sesión caducada. Inicie sesión.",
         ERR_USER_CREATION_DISABLED:
           "La creación de usuarios fue deshabilitada por el administrador.",
@@ -471,7 +472,7 @@ const messages = {
         ERR_CREATING_MESSAGE: "Error al crear el mensaje en la base de datos.",
         ERR_CREATING_TICKET: "Error al crear el ticket en la base de datos.",
         ERR_FETCH_WAPP_MSG:
-          "Error al obtener el mensaje en WhtasApp, tal vez sea demasiado antiguo.",
+          "Error al obtener el mensaje en WhtasApp, tal vez sea demasiado antiguo o se eliminó.",
         ERR_QUEUE_COLOR_ALREADY_EXISTS:
           "Este color ya está en uso, elija otro.",
         ERR_WAPP_GREETING_REQUIRED:

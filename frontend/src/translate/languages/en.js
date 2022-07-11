@@ -449,8 +449,8 @@ const messages = {
         ERR_SENDING_WAPP_MSG:
           "Error sending WhatsApp message. Check connections page.",
         ERR_DELETE_WAPP_MSG: "Couldn't delete message from WhatsApp.",
-        ERR_OTHER_OPEN_TICKET:
-          "There's already an open ticket for this contact.",
+        ERR_OTHER_OPEN_TICKET: "This contact is already in service in the queue ",
+        ERR_OTHER_OPEN_TICKET_2: "with the user ",
         ERR_SESSION_EXPIRED: "Session expired. Please login.",
         ERR_USER_CREATION_DISABLED:
           "User creation was disabled by administrator.",
@@ -464,7 +464,7 @@ const messages = {
         ERR_CREATING_MESSAGE: "Error while creating message on database.",
         ERR_CREATING_TICKET: "Error while creating ticket on database.",
         ERR_FETCH_WAPP_MSG:
-          "Error fetching the message in WhtasApp, maybe it is too old.",
+          "Error fetching the message in WhtasApp, maybe it is too old or has been deleted.",
         ERR_QUEUE_COLOR_ALREADY_EXISTS:
           "This color is already in use, pick another one.",
         ERR_WAPP_GREETING_REQUIRED:

@@ -456,7 +456,9 @@ const messages = {
         ERR_SENDING_WAPP_MSG:
           "Erro ao enviar mensagem do WhatsApp. Verifique a página de conexões.",
         ERR_DELETE_WAPP_MSG: "Não foi possível excluir a mensagem do WhatsApp.",
-        ERR_OTHER_OPEN_TICKET: "Já existe um tíquete aberto para este contato.",
+        ERR_CONTACT_MSG_DELETED: "Está mensagem possivelmente foi apagada.",
+        ERR_OTHER_OPEN_TICKET: "Este contato já está em atendimento na fila ",
+        ERR_OTHER_OPEN_TICKET_2: "com o usuário ",
         ERR_SESSION_EXPIRED: "Sessão expirada. Por favor entre.",
         ERR_USER_CREATION_DISABLED:
           "A criação do usuário foi desabilitada pelo administrador.",
@@ -470,7 +472,7 @@ const messages = {
         ERR_CREATING_MESSAGE: "Erro ao criar mensagem no banco de dados.",
         ERR_CREATING_TICKET: "Erro ao criar tíquete no banco de dados.",
         ERR_FETCH_WAPP_MSG:
-          "Erro ao buscar a mensagem no WhtasApp, talvez ela seja muito antiga.",
+          "Erro ao buscar a mensagem no WhtasApp, talvez ela seja muito antiga ou tenha sido apagada.",
         ERR_QUEUE_COLOR_ALREADY_EXISTS:
           "Esta cor já está em uso, escolha outra.",
         ERR_WAPP_GREETING_REQUIRED:

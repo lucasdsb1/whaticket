@@ -2,6 +2,8 @@ import { Message as WbotMessage } from "whatsapp-web.js";
 import Ticket from "../models/Ticket";
 import GetTicketWbot from "./GetTicketWbot";
 import AppError from "../errors/AppError";
+import Message from "../models/Message";
+import { getIO } from "../libs/socket";
 
 export const GetWbotMessage = async (
   ticket: Ticket,
@@ -32,12 +34,28 @@ export const GetWbotMessage = async (
     const msgFound = await fetchWbotMessagesGradually();
 
     if (!msgFound) {
-      throw new Error("Cannot found message within 100 last messages");
+      throw new Error("Cannot found message within 100 last messages")
     }
 
     return msgFound;
   } catch (err) {
-    throw new AppError("ERR_FETCH_WAPP_MSG");
+    const message = await Message.findByPk(messageId);
+    
+    if (!message) {
+      throw new AppError("ERR_FETCH_WAPP_MSG");
+    }
+    
+    if (await message!.update({ isDeleted: true })) {
+      message.isDeleted = true;
+    }
+      
+    const io = getIO();
+    io.to(message!.ticketId.toString()).emit("appMessage", {
+      action: "update",
+      message
+    });
+
+    throw new AppError("ERR_CONTACT_MSG_DELETED");
   }
 };
 
