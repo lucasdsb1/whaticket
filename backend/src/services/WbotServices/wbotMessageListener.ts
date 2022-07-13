@@ -281,6 +281,7 @@ const handleMessage = async (
           if (!isValidMsg(message) && message.type === "ciphertext" && message.from !== msg.from) {
             message.body = "BODY_NOT_LOADED";
             await handleMessage(message, wbot);
+            chat.sendSeen();
           }
         }
       }
