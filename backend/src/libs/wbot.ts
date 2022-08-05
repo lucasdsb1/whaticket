@@ -58,7 +58,7 @@ export const initWbot = async (whatsapp: Whatsapp): Promise<Session> => {
           executablePath: process.env.CHROME_BIN || undefined,
           // @ts-ignore
           browserWSEndpoint: process.env.CHROME_WS || undefined,
-          headless: false,
+          headless: true,
           args: ['--remote-debugging-port=9222']
         }
       });
